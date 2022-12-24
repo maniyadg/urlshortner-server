@@ -66,9 +66,9 @@ app.post("/user/login", async (req, res) => {
 app.post("/forget", async (req, res) => {
   try {
     const connection = await client.connect();
-    const db = connection.db("mongodb_sample_project");
+    const db = connection.db("urlShortner");
     const user = await db
-      .collection("users")
+      .collection("urls")
       .findOne({ email: req.body.email });
     if (!user) {
       res.json({ message: "User doesn't exist" });
@@ -113,9 +113,9 @@ app.put("/reset-password/:id/:token", async (req, res) => {
   const { password } = req.body;
   try {
     const connection = await client.connect();
-    const db = connection.db("mongodb_sample_project");
+    const db = connection.db("urlShortner");
     const userdata = await db
-      .collection("users")
+      .collection("urls")
       .findOne({ _id: mongodb.ObjectId(req.params.id) });
     if (!userdata) {
       res.json({ message: "User doesn't exist" });
@@ -123,7 +123,7 @@ app.put("/reset-password/:id/:token", async (req, res) => {
     const secret = userdata.password + JWT_SECRET;
     const verify = jwt.verify(token, secret);
     const confirnPassword = await bcrypt.hash(password, 10);
-    const user = await db.collection("users").updateOne(
+    const user = await db.collection("urls").updateOne(
       {
         _id: mongodb.ObjectId(req.params.id),
       },
