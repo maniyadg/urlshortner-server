@@ -198,4 +198,6 @@ function generateUrl() {
   return rndResult;
 }
 
-app.listen(3000);
+app.listen(process.env.PORT || 3003, function () {
+  console.log("Server Listening!");
+});
