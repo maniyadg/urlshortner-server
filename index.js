@@ -6,8 +6,8 @@ const { MongoClient } = require("mongodb");
 const app = express();
 const dotenv = require("dotenv").config();
 const bcrypt = require("bcryptjs");
-// const jwt = require("jsonwebtoken");
-// const JWT_SECRET = process.env.JWT_SECRET;
+const jwt = require("jsonwebtoken");
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const url = process.env.DB;
 const client = new MongoClient(url);
